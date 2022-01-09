@@ -1,0 +1,7 @@
+{
+  "name": "candyCrushGame",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
