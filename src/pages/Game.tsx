@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { itemColor, panel } from '../interfaces/interfaces';
+import { useState , useEffect} from 'react';
 import './Game.css';
 
 const myItemColors: itemColor = {
@@ -12,18 +13,25 @@ const myPanel: panel = {
 
 const Game: React.FC = () => {
 
+  const [currentColorArray, setCurrentColorArray] = useState<string[]>([])
+
   const createPanel = () => {
-    const randomColorArray = [];
+    const randomColorArray: string[] = [];
     for(let i = 0; i < myPanel.width * myPanel.width; i++){
-      const randomNumber0to5 = Math.floor(Math.random() * myItemColors.color.length);
-      const randomColor = myItemColors.color[randomNumber0to5];
+      const randomNumber0to5: number = Math.floor(Math.random() * myItemColors.color.length);
+      const randomColor: string = myItemColors.color[randomNumber0to5];
       randomColorArray.push(randomColor);
     }
-    console.log(randomColorArray);
+    /* console.log(randomColorArray); */
+    setCurrentColorArray(randomColorArray);
   }
 
-  createPanel();
+  useEffect(() => {
+    createPanel();
+  }, []);
 
+  console.log(currentColorArray);
+  
   return (
     <IonPage>
       <IonHeader>
