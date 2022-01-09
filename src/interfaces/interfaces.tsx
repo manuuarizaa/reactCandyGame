@@ -1,7 +1,12 @@
-export interface itemColor{
+export interface ItemColor{
     color: string[];
 }
 
-export interface panel{
+export interface Panel{
     width: number;
+}
+
+export interface PanelBoardProps{
+    board: string[];
+    colors: string[];
 }

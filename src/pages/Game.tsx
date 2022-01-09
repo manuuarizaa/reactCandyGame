@@ -1,13 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { itemColor, panel } from '../interfaces/interfaces';
+import { ItemColor, Panel } from '../interfaces/interfaces';
 import { useState , useEffect} from 'react';
 import './Game.css';
+import GameBoard from '../components/GameBoard';
 
-const myItemColors: itemColor = {
+const myItemColors: ItemColor = {
   color: ['blue', 'red', 'green', 'pink', 'purple', 'yellow']
 };
 
-const myPanel: panel = {
+const myPanel: Panel = {
   width: 8
 };
 
@@ -28,19 +29,19 @@ const Game: React.FC = () => {
 
   useEffect(() => {
     createPanel();
-  }, []);
+  }, [myPanel.width]);
 
-  console.log(currentColorArray);
+  /* console.log(currentColorArray); */
   
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Game</IonTitle>
+          <IonTitle className="ion-text-center">Game</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <p>First view</p>
+        <GameBoard board={currentColorArray} colors={myItemColors.color}></GameBoard>
       </IonContent>
     </IonPage>
   );

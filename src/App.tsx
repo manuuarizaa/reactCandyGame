@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { gameController } from 'ionicons/icons';
 
 import Game from './pages/Game';
 
@@ -49,7 +49,7 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="game" href="/game">
-            <IonIcon icon={triangle} />
+            <IonIcon icon={gameController} />
             <IonLabel>Game</IonLabel>
           </IonTabButton>
         </IonTabBar>
