@@ -6,11 +6,11 @@ const GameBoard: React.FC<PanelBoardProps> = ({ board, colors }) => {
     return (
       <div className="board">
         <div className="game">
-            {board.map((colors, index) => (
+            {board.map((color, index) => (
                 <IonImg
                     className="img"
                     key={index} 
-                    style={{backgroundColor: colors}}
+                    style={{backgroundColor: color}}
                 ></IonImg>
             ))}
         </div>
