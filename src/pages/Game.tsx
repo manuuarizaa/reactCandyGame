@@ -17,8 +17,7 @@ const Game: React.FC = () => {
 
   const [currentColorArray, setCurrentColorArray] = useState<string[]>([])
 
-  const checkColumOfFour = () =>{
-    
+  const checkColumOfFour = () =>{ 
     let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1)
     for(let i: number = 0; i < maxToCheckColum; i++){
       const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
@@ -26,6 +25,24 @@ const Game: React.FC = () => {
 
       if( columOfFour.every(square => currentColorArray[square] === selectedColor)){
         columOfFour.forEach(square => currentColorArray[square] = '')
+      }
+    }
+  }
+  
+  const checkRowOfFour = () =>{
+    let notValid: number[] = [];
+    for(let i: number = myPanel.width - 1; i < myPanel.width * myPanel.width; i += myPanel.width){
+      notValid.push(i-2, i-1, i);
+    }
+
+    for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
+      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3]
+      const selectedColor: string = currentColorArray[i]
+
+      if(notValid.includes(i)) continue
+
+      if( rowOfFour.every(square => currentColorArray[square] === selectedColor)){
+        rowOfFour.forEach(square => currentColorArray[square] = '')
       }
     }
   }
@@ -49,12 +66,10 @@ const Game: React.FC = () => {
     24 25 26 27 28 29 (5) X
     30 31 32 33 34 35 (6) X
     */
-    
     let maxToCheckColum: number = ((myPanel.width - 2) * myPanel.width - 1)
     for(let i: number = 0; i < maxToCheckColum; i++){
       const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2]
       const selectedColor: string = currentColorArray[i]
-
       /* 
       Con la función every comprobamos que todas las posiciones que le
       indicamos en el array cumplen cierta condición, en nuestro caso que
@@ -69,7 +84,6 @@ const Game: React.FC = () => {
   }
 
   const checkRowOfThree = () =>{
-    
     /*
     Ej: 6 x 6
               X  X  X
@@ -84,6 +98,7 @@ const Game: React.FC = () => {
     Las 2 última columnas no es necesario hacerles la comprobación
     */
     let notValid: number[] = [];
+
     for(let i: number = myPanel.width - 1; i < myPanel.width * myPanel.width; i += myPanel.width){
       notValid.push(i-1, i);
     }
@@ -117,13 +132,14 @@ const Game: React.FC = () => {
 
   useEffect(()=>{
     const timer = setInterval(() => {
-      checkRowOfThree()
       checkColumOfFour()
+      checkRowOfFour()
       checkColumOfThree()
+      checkRowOfThree()
       setCurrentColorArray([...currentColorArray])
     }, 100)
     return () => clearInterval(timer)
-  }, [checkRowOfThree, checkColumOfFour, checkColumOfThree, currentColorArray])
+  }, [checkColumOfFour,checkRowOfFour,checkColumOfThree,checkRowOfThree, currentColorArray])
 
   /* console.log(currentColorArray); */
   
