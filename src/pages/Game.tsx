@@ -115,6 +115,47 @@ const Game: React.FC = () => {
     }
   }
 
+  const moveIntoSquareBelow = () => {
+    /* 
+    Evaluamos todos los elementos menos la última fila, ya que las fichas no pueden bajar más de eso.
+    Si se detecta que la fila de abajo está en blanco, bajamos el color de esa posición a la de abajo.
+    Además si detectamos que en la primera fila hay una ficha en blanco, generamos un color aleatorio,
+    de esta manera vamos a rellenar la tabla al 100% ya que al bajar todos los elementos hacia abajo las
+    fichas blancas van a quedar siempre arriba
+    */
+    let firstRow: number[] = [];
+    for(let i: number = 0; i < myPanel.width; i++){
+      firstRow.push(i);
+    }
+
+    for(let i: number = 0; i < myPanel.width * myPanel.width - myPanel.width; i++){
+
+      const isFirstRow: boolean = firstRow.includes(i);
+      if(isFirstRow && currentColorArray[i] === ''){
+        let randomNumber: number = Math.floor(Math.random() * myItemColors.color.length);
+        currentColorArray[i] = myItemColors.color[randomNumber];
+      }
+
+      if((currentColorArray[i + myPanel.width]) === ''){
+        currentColorArray[i + myPanel.width] = currentColorArray[i];
+        currentColorArray[i] = '';
+      }
+    }
+  }
+
+  const dragStart = () =>{
+    console.log('arrastre empieza');
+  }
+
+  const dragDrop = () => {
+    console.log('arrastre borra');
+  }
+
+  const dragEnd = () =>{
+    console.log('arrastre termina');
+  }
+
+
   const createPanel = () => {
     const randomColorArray: string[] = [];
     for(let i = 0; i < myPanel.width * myPanel.width; i++){
@@ -136,10 +177,11 @@ const Game: React.FC = () => {
       checkRowOfFour()
       checkColumOfThree()
       checkRowOfThree()
+      moveIntoSquareBelow()
       setCurrentColorArray([...currentColorArray])
     }, 100)
     return () => clearInterval(timer)
-  }, [checkColumOfFour,checkRowOfFour,checkColumOfThree,checkRowOfThree, currentColorArray])
+  }, [checkColumOfFour, checkRowOfFour, checkColumOfThree, checkRowOfThree, moveIntoSquareBelow, currentColorArray])
 
   /* console.log(currentColorArray); */
   
@@ -151,7 +193,7 @@ const Game: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <GameBoard board={currentColorArray} colors={myItemColors.color}></GameBoard>
+        <GameBoard board={currentColorArray} colors={myItemColors.color} dragStart={dragStart} dragDrop={dragDrop} dragEnd={dragEnd} ></GameBoard>
       </IonContent>
     </IonPage>
   );

@@ -9,4 +9,7 @@ export interface Panel{
 export interface PanelBoardProps{
     board: string[];
     colors: string[];
+    dragStart: any;
+    dragDrop: any;
+    dragEnd: any;
 }
