@@ -148,7 +148,7 @@ const Game: React.FC = () => {
   }
 
   const dragDrop = () => {
-    console.log('arrastre borra');
+    console.log('arrastre y suelta');
   }
 
   const dragEnd = () =>{

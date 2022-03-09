@@ -2,7 +2,7 @@ import './GameBoard.css';
 import { PanelBoardProps } from '../interfaces/interfaces';
 import { IonImg } from '@ionic/react';
 
-const GameBoard: React.FC<PanelBoardProps> = ({ board, colors, dragStart }) => {
+const GameBoard: React.FC<PanelBoardProps> = ({ board, colors, dragStart, dragDrop, dragEnd }) => {
     return (
       <div className="board">
         <div className="game">
@@ -24,8 +24,8 @@ const GameBoard: React.FC<PanelBoardProps> = ({ board, colors, dragStart }) => {
                     onDragOver = {(e) => e.preventDefault()} //Ocurre cuando estamos colocando sobre la posición la ficha
                     onDragEnter = {(e) => e.preventDefault()}
                     onDragLeave = {(e) => e.preventDefault()}
-                    /* onDrop = {dragDrop} 
-                    onDragEnd = {dragEnd} */
+                    onDrop = {dragDrop} 
+                    onDragEnd = {dragEnd}
                 ></IonImg>
             ))}
         </div>
