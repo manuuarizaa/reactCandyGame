@@ -16,16 +16,28 @@ const myPanel: Panel = {
 const Game: React.FC = () => {
 
   const [currentColorArray, setCurrentColorArray] = useState<string[]>([])
+  const [squareBeingDragged, setSquareBeingDragged] = useState<any>(null);
+  const [squareBeingReplaced, setSquareBeingReplaced] = useState<any>(null);
 
   const checkColumOfFour = () =>{ 
     let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1)
-    for(let i: number = 0; i < maxToCheckColum; i++){
+    for(let i: number = 0; i <= maxToCheckColum; i++){
       const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
       const selectedColor: string = currentColorArray[i]
 
-      if( columOfFour.every(square => currentColorArray[square] === selectedColor)){
+      if( columOfFour.every(square => currentColorArray[square] === selectedColor))
         columOfFour.forEach(square => currentColorArray[square] = '')
-      }
+    }
+  }
+
+  const booleanCheckColumOfFour = () =>{
+    let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1);
+    for(let i: number = 0; i <= maxToCheckColum; i++){
+      const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
+      const selectedColor: string = currentColorArray[i]
+
+      if( columOfFour.every(square => currentColorArray[square] === selectedColor))
+        return true
     }
   }
   
@@ -41,9 +53,26 @@ const Game: React.FC = () => {
 
       if(notValid.includes(i)) continue
 
-      if( rowOfFour.every(square => currentColorArray[square] === selectedColor)){
+      if( rowOfFour.every(square => currentColorArray[square] === selectedColor))
         rowOfFour.forEach(square => currentColorArray[square] = '')
-      }
+
+    }
+  }
+
+  const booleanCheckRowOfFour = () =>{
+    let notValid: number[] = [];
+    for(let i: number = myPanel.width - 1; i < myPanel.width * myPanel.width; i += myPanel.width){
+      notValid.push(i-2, i-1, i);
+    }
+
+    for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
+      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3]
+      const selectedColor: string = currentColorArray[i]
+
+      if(notValid.includes(i)) continue
+
+      if( rowOfFour.every(square => currentColorArray[square] === selectedColor))
+        return true;
     }
   }
 
@@ -67,7 +96,7 @@ const Game: React.FC = () => {
     30 31 32 33 34 35 (6) X
     */
     let maxToCheckColum: number = ((myPanel.width - 2) * myPanel.width - 1)
-    for(let i: number = 0; i < maxToCheckColum; i++){
+    for(let i: number = 0; i <= maxToCheckColum; i++){
       const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2]
       const selectedColor: string = currentColorArray[i]
       /* 
@@ -77,9 +106,25 @@ const Game: React.FC = () => {
       seleccionado actual.
       Si se cumple cambiamos el nombre del color por ''
       */
-      if( columOfThree.every(square => currentColorArray[square] === selectedColor)){
+      if( columOfThree.every(square => currentColorArray[square] === selectedColor))
         columOfThree.forEach(square => currentColorArray[square] = '')
-      }
+    }
+  }
+
+  const booleanCheckColumOfThree = () =>{
+    let maxToCheckColum: number = ((myPanel.width - 2) * myPanel.width - 1)
+    for(let i: number = 0; i <= maxToCheckColum; i++){
+      const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2]
+      const selectedColor: string = currentColorArray[i]
+      /* 
+      Con la función every comprobamos que todas las posiciones que le
+      indicamos en el array cumplen cierta condición, en nuestro caso que
+      las 3 posiciones indicadas en columOfThree tengan el mismo color el
+      seleccionado actual.
+      Si se cumple cambiamos el nombre del color por ''
+      */
+      if( columOfThree.every(square => currentColorArray[square] === selectedColor))
+        return true;
     }
   }
 
@@ -109,9 +154,26 @@ const Game: React.FC = () => {
 
       if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
 
-      if( rowOfThree.every(square => currentColorArray[square] === selectedColor)){
+      if( rowOfThree.every(square => currentColorArray[square] === selectedColor))
         rowOfThree.forEach(square => currentColorArray[square] = '')
-      }
+    }
+  }
+
+  const booleanCheckRowOfThree = () =>{
+    let notValid: number[] = [];
+
+    for(let i: number = myPanel.width - 1; i < myPanel.width * myPanel.width; i += myPanel.width){
+      notValid.push(i-1, i);
+    }
+
+    for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
+      const rowOfThree: number[] = [i, i + 1, i + 2]
+      const selectedColor: string = currentColorArray[i]
+
+      if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
+
+      if( rowOfThree.every(square => currentColorArray[square] === selectedColor))
+        return true;
     }
   }
 
@@ -128,7 +190,7 @@ const Game: React.FC = () => {
       firstRow.push(i);
     }
 
-    for(let i: number = 0; i < myPanel.width * myPanel.width - myPanel.width; i++){
+    for(let i: number = 0; i <= myPanel.width * myPanel.width - myPanel.width; i++){
 
       const isFirstRow: boolean = firstRow.includes(i);
       if(isFirstRow && currentColorArray[i] === ''){
@@ -143,16 +205,50 @@ const Game: React.FC = () => {
     }
   }
 
-  const dragStart = () =>{
-    console.log('arrastre empieza');
+  const dragStart = (e: Event) =>{
+    //console.log(e.target);
+    setSquareBeingDragged(e.target);
   }
 
-  const dragDrop = () => {
-    console.log('arrastre y suelta');
+  const dragDrop = (e: Event) => {
+    //console.log(e.target);
+    setSquareBeingReplaced(e.target);
   }
 
-  const dragEnd = () =>{
-    console.log('arrastre termina');
+  const dragEnd = (e: Event) =>{
+    const squareBeingDraggedId: number= parseInt(squareBeingDragged.getAttribute('data-id'));
+    const squareBeingReplacedId: number = parseInt(squareBeingReplaced.getAttribute('data-id'));
+
+    currentColorArray[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor;
+    currentColorArray[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor;
+
+    const validPosition: number[] = [
+      squareBeingDraggedId - 1,
+      squareBeingDraggedId - myPanel.width,
+      squareBeingDraggedId + 1,
+      squareBeingDraggedId + myPanel.width
+    ]
+
+    const validMove: boolean = validPosition.includes(squareBeingReplacedId);
+    
+    const isColumOfFour: any = booleanCheckColumOfFour();
+    const isRowOfFour: any = booleanCheckRowOfFour();
+    const isColumOfThree: any = booleanCheckColumOfThree();
+    const isRowOfThree: any = booleanCheckRowOfThree(); 
+    
+
+    if(squareBeingReplacedId && 
+      validMove && 
+      (isColumOfFour || isRowOfFour || isColumOfThree || isRowOfThree)
+    ){
+      setSquareBeingDragged(null)
+      setSquareBeingReplaced(null)
+    }else{
+      currentColorArray[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor;
+      currentColorArray[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor;
+      setCurrentColorArray([...currentColorArray]);
+    }
+
   }
 
 
@@ -193,7 +289,14 @@ const Game: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <GameBoard board={currentColorArray} colors={myItemColors.color} dragStart={dragStart} dragDrop={dragDrop} dragEnd={dragEnd} ></GameBoard>
+        <GameBoard 
+          board={currentColorArray} 
+          colors={myItemColors.color} 
+          dragStart={dragStart} 
+          dragDrop={dragDrop} 
+          dragEnd={dragEnd}
+        >
+        </GameBoard>
       </IonContent>
     </IonPage>
   );
