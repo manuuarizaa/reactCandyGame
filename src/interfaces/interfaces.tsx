@@ -12,3 +12,7 @@ export interface PanelBoardProps{
     dragDrop: any;
     dragEnd: any;
 }
+
+export interface scoreProps{
+    score: number;
+}

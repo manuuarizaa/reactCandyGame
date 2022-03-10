@@ -11,6 +11,7 @@ import jigglypuff from '../images/jigglypuff.png';
 import squirtle from '../images/squirtle.png';
 import eevee from '../images/eevee.png';
 import pokeball from '../images/pokeball.png';
+import ScoreBoard from '../components/ScoreBoard';
 
 const myItemColors: ItemColor = {
   color: [
@@ -31,6 +32,7 @@ const Game: React.FC = () => {
   const [currentColorArray, setCurrentColorArray] = useState<string[]>([])
   const [squareBeingDragged, setSquareBeingDragged] = useState<any>(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState<any>(null);
+  const [score, setScore] = useState<number>(0);
 
   const checkColumOfFour = () =>{ 
     let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1)
@@ -38,8 +40,11 @@ const Game: React.FC = () => {
       const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
       const selectedColor: string = currentColorArray[i]
 
-      if( columOfFour.every(square => currentColorArray[square] === selectedColor))
+      if( columOfFour.every(square => currentColorArray[square] === selectedColor)){
         columOfFour.forEach(square => currentColorArray[square] = pokeball)
+        setScore((sc) => sc+4);
+        setScore(score+4)
+      }
     }
   }
 
@@ -66,8 +71,10 @@ const Game: React.FC = () => {
 
       if(notValid.includes(i)) continue
 
-      if( rowOfFour.every(square => currentColorArray[square] === selectedColor))
-        rowOfFour.forEach(square => currentColorArray[square] = pokeball)
+      if( rowOfFour.every(square => currentColorArray[square] === selectedColor)){
+        rowOfFour.forEach(square => currentColorArray[square] = pokeball);
+        setScore((sc) => sc+4);
+      }
 
     }
   }
@@ -119,8 +126,10 @@ const Game: React.FC = () => {
       seleccionado actual.
       Si se cumple cambiamos el nombre del color por pokeball
       */
-      if( columOfThree.every(square => currentColorArray[square] === selectedColor))
+      if( columOfThree.every(square => currentColorArray[square] === selectedColor)){
         columOfThree.forEach(square => currentColorArray[square] = pokeball)
+        setScore((sc) => sc+3);
+      }
     }
   }
 
@@ -167,8 +176,10 @@ const Game: React.FC = () => {
 
       if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
 
-      if( rowOfThree.every(square => currentColorArray[square] === selectedColor))
+      if( rowOfThree.every(square => currentColorArray[square] === selectedColor)){
         rowOfThree.forEach(square => currentColorArray[square] = pokeball)
+        setScore((sc) => sc+3);
+      }
     }
   }
 
@@ -264,7 +275,6 @@ const Game: React.FC = () => {
 
   }
 
-
   const createPanel = () => {
     const randomColorArray: string[] = [];
     for(let i = 0; i < myPanel.width * myPanel.width; i++){
@@ -309,6 +319,7 @@ const Game: React.FC = () => {
           dragEnd={dragEnd}
         >
         </GameBoard>
+        <ScoreBoard score={score}></ScoreBoard>
       </IonContent>
     </IonPage>
   );

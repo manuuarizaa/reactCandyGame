@@ -1,6 +1,6 @@
 import './GameBoard.css';
 import { PanelBoardProps } from '../interfaces/interfaces';
-import { IonImg } from '@ionic/react';
+import { IonCol, IonGrid, IonImg, IonRow } from '@ionic/react';
 
 const GameBoard: React.FC<PanelBoardProps> = (
   { board, 
@@ -37,7 +37,16 @@ const GameBoard: React.FC<PanelBoardProps> = (
           </div>
         </div>
         <div>
-          <a href="https://www.flaticon.es/iconos-gratis/pokemon" title="pokemon iconos">Pokemon iconos creados por Roundicons Freebies - Flaticon</a>
+          <IonGrid fixed>
+            <IonRow>
+              <IonCol size="12">
+                <a href="https://www.flaticon.es/iconos-gratis/pokemon"  title="Iconos Pokemon" target="_blank">Iconos Pokemon creados por <b>Roundicons Freebies</b></a>
+              </IonCol>
+              <IonCol size="12">
+                <a href="https://www.flaticon.es/iconos-gratis/pokemon" title="Icono pokeball" target="_blank">Icono Pokeball creado por <b>Those Icons</b></a>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </div>
       </div>
     );
