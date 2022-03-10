@@ -320,7 +320,7 @@ const Game: React.FC = () => {
         <ScoreBoard score={score}/>
 
         <IonGrid fixed>
-          <IonRow>
+          <IonRow className="credits">
             <IonCol size="12">
             <a 
               href="https://www.youtube.com/watch?v=PBrEq9Wd6_U" 
