@@ -3,7 +3,6 @@ import { ItemColor, Panel } from '../interfaces/interfaces';
 import { useState , useEffect} from 'react';
 import './Game.css';
 import GameBoard from '../components/GameBoard';
-import { square } from 'ionicons/icons';
 
 const myItemColors: ItemColor = {
   color: ['blue', 'red', 'green', 'pink', 'purple', 'yellow']
