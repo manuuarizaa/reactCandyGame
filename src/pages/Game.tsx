@@ -242,11 +242,11 @@ const Game: React.FC = () => {
   }
 
   const dragEnd = (e: Event) =>{
-    const squareBeingDraggedId: number= parseInt(squareBeingDragged.getAttribute('data-id'));
-    const squareBeingReplacedId: number = parseInt(squareBeingReplaced.getAttribute('data-id'));
+    const squareBeingDraggedId: number= parseInt(squareBeingDragged?.getAttribute('data-id'));
+    const squareBeingReplacedId: number = parseInt(squareBeingReplaced?.getAttribute('data-id'));
 
-    currentColorArray[squareBeingReplacedId] = squareBeingDragged.getAttribute('src');
-    currentColorArray[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src');
+    currentColorArray[squareBeingReplacedId] = squareBeingDragged?.getAttribute('src');
+    currentColorArray[squareBeingDraggedId] = squareBeingReplaced?.getAttribute('src');
 
     const validPosition: number[] = [
       squareBeingDraggedId - 1,
@@ -260,18 +260,17 @@ const Game: React.FC = () => {
     const isColumOfFour: any = booleanCheckColumOfFour();
     const isRowOfFour: any = booleanCheckRowOfFour();
     const isColumOfThree: any = booleanCheckColumOfThree();
-    const isRowOfThree: any = booleanCheckRowOfThree(); 
-    
+    const isRowOfThree: any = booleanCheckRowOfThree();
 
-    if(squareBeingReplacedId && 
+    if(squareBeingReplacedId !== NaN && 
       validMove && 
       (isColumOfFour || isRowOfFour || isColumOfThree || isRowOfThree)
     ){
       setSquareBeingDragged(null);
       setSquareBeingReplaced(null);
     }else{
-      currentColorArray[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src');
-      currentColorArray[squareBeingDraggedId] = squareBeingDragged.getAttribute('src');
+      currentColorArray[squareBeingReplacedId] = squareBeingReplaced?.getAttribute('src');
+      currentColorArray[squareBeingDraggedId] = squareBeingDragged?.getAttribute('src');
       setCurrentColorArray([...currentColorArray]);
     }
 
@@ -307,7 +306,7 @@ const Game: React.FC = () => {
     <IonPage>
       <IonHeader className="ion-no-border">
         <IonToolbar>
-          <IonTitle className="ion-text-center">Pokemon Candy Game</IonTitle>
+          <IonTitle className="ion-text-center">Pokemon Candy</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -322,6 +321,15 @@ const Game: React.FC = () => {
 
         <IonGrid fixed>
           <IonRow>
+            <IonCol size="12">
+            <a 
+              href="https://www.youtube.com/watch?v=PBrEq9Wd6_U" 
+              title="Inspiración" 
+              target="_blank"
+            >
+              Código basado en el video de youtube 'Candy Crush in React' de <b>Ania Kubów</b>
+            </a>
+            </IonCol>
             <IonCol size="12">
               <a href="https://www.flaticon.es/iconos-gratis/pokemon"  title="Iconos Pokemon" target="_blank">Iconos Pokemon creados por <b>Roundicons Freebies</b></a>
             </IonCol>
