@@ -1,9 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { ItemColor, Panel } from '../interfaces/interfaces';
 import { useState , useEffect} from 'react';
 import './Game.css';
 import GameBoard from '../components/GameBoard';
-
+import ScoreBoard from '../components/ScoreBoard';
 import pikachu from '../images/pikachu.png';
 import charmander from '../images/charmander.png';
 import snorlax from '../images/snorlax.png';
@@ -11,7 +11,7 @@ import jigglypuff from '../images/jigglypuff.png';
 import squirtle from '../images/squirtle.png';
 import eevee from '../images/eevee.png';
 import pokeball from '../images/pokeball.png';
-import ScoreBoard from '../components/ScoreBoard';
+
 
 const myItemColors: ItemColor = {
   color: [
@@ -29,21 +29,22 @@ const myPanel: Panel = {
 
 const Game: React.FC = () => {
 
-  const [currentColorArray, setCurrentColorArray] = useState<string[]>([])
+  const [currentColorArray, setCurrentColorArray] = useState<string[]>([]);
   const [squareBeingDragged, setSquareBeingDragged] = useState<any>(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState<any>(null);
   const [score, setScore] = useState<number>(0);
 
   const checkColumOfFour = () =>{ 
-    let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1)
+    let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1);
     for(let i: number = 0; i <= maxToCheckColum; i++){
-      const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
-      const selectedColor: string = currentColorArray[i]
+      const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3];
+      const selectedColor: string = currentColorArray[i];
 
       if( columOfFour.every(square => currentColorArray[square] === selectedColor)){
-        columOfFour.forEach(square => currentColorArray[square] = pokeball)
-        setScore((sc) => sc+4);
-        setScore(score+4)
+        columOfFour.forEach(square => currentColorArray[square] = pokeball);
+        if(selectedColor !== pokeball)
+          setScore((sc) => sc+4);
+        
       }
     }
   }
@@ -51,11 +52,11 @@ const Game: React.FC = () => {
   const booleanCheckColumOfFour = () =>{
     let maxToCheckColum: number = ((myPanel.width - 3) * myPanel.width - 1);
     for(let i: number = 0; i <= maxToCheckColum; i++){
-      const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3]
-      const selectedColor: string = currentColorArray[i]
+      const columOfFour: number[] = [i, i + myPanel.width, i + myPanel.width * 2, i + myPanel.width * 3];
+      const selectedColor: string = currentColorArray[i];
 
       if( columOfFour.every(square => currentColorArray[square] === selectedColor))
-        return true
+        return true;
     }
   }
   
@@ -66,14 +67,15 @@ const Game: React.FC = () => {
     }
 
     for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
-      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3]
-      const selectedColor: string = currentColorArray[i]
+      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3];
+      const selectedColor: string = currentColorArray[i];
 
       if(notValid.includes(i)) continue
 
       if( rowOfFour.every(square => currentColorArray[square] === selectedColor)){
         rowOfFour.forEach(square => currentColorArray[square] = pokeball);
-        setScore((sc) => sc+4);
+        if(selectedColor !== pokeball)
+          setScore((sc) => sc+4);
       }
 
     }
@@ -86,10 +88,10 @@ const Game: React.FC = () => {
     }
 
     for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
-      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3]
-      const selectedColor: string = currentColorArray[i]
+      const rowOfFour: number[] = [i, i + 1, i + 2, i + 3];
+      const selectedColor: string = currentColorArray[i];
 
-      if(notValid.includes(i)) continue
+      if(notValid.includes(i)) continue;
 
       if( rowOfFour.every(square => currentColorArray[square] === selectedColor))
         return true;
@@ -117,8 +119,8 @@ const Game: React.FC = () => {
     */
     let maxToCheckColum: number = ((myPanel.width - 2) * myPanel.width - 1)
     for(let i: number = 0; i <= maxToCheckColum; i++){
-      const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2]
-      const selectedColor: string = currentColorArray[i]
+      const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2];
+      const selectedColor: string = currentColorArray[i];
       /* 
       Con la función every comprobamos que todas las posiciones que le
       indicamos en el array cumplen cierta condición, en nuestro caso que
@@ -127,8 +129,9 @@ const Game: React.FC = () => {
       Si se cumple cambiamos el nombre del color por pokeball
       */
       if( columOfThree.every(square => currentColorArray[square] === selectedColor)){
-        columOfThree.forEach(square => currentColorArray[square] = pokeball)
-        setScore((sc) => sc+3);
+        columOfThree.forEach(square => currentColorArray[square] = pokeball);
+        if(selectedColor !== pokeball)
+          setScore((sc) => sc+3);
       }
     }
   }
@@ -136,8 +139,8 @@ const Game: React.FC = () => {
   const booleanCheckColumOfThree = () =>{
     let maxToCheckColum: number = ((myPanel.width - 2) * myPanel.width - 1)
     for(let i: number = 0; i <= maxToCheckColum; i++){
-      const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2]
-      const selectedColor: string = currentColorArray[i]
+      const columOfThree: number[] = [i, i + myPanel.width, i + myPanel.width * 2];
+      const selectedColor: string = currentColorArray[i];
       /* 
       Con la función every comprobamos que todas las posiciones que le
       indicamos en el array cumplen cierta condición, en nuestro caso que
@@ -171,14 +174,15 @@ const Game: React.FC = () => {
     }
 
     for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
-      const rowOfThree: number[] = [i, i + 1, i + 2]
-      const selectedColor: string = currentColorArray[i]
+      const rowOfThree: number[] = [i, i + 1, i + 2];
+      const selectedColor: string = currentColorArray[i];
 
-      if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
+      if(notValid.includes(i)) continue; //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
 
       if( rowOfThree.every(square => currentColorArray[square] === selectedColor)){
-        rowOfThree.forEach(square => currentColorArray[square] = pokeball)
-        setScore((sc) => sc+3);
+        rowOfThree.forEach(square => currentColorArray[square] = pokeball);
+        if(selectedColor !== pokeball)
+          setScore((sc) => sc+3);
       }
     }
   }
@@ -191,10 +195,10 @@ const Game: React.FC = () => {
     }
 
     for(let i: number = 0; i < myPanel.width * myPanel.width; i++){
-      const rowOfThree: number[] = [i, i + 1, i + 2]
-      const selectedColor: string = currentColorArray[i]
+      const rowOfThree: number[] = [i, i + 1, i + 2];
+      const selectedColor: string = currentColorArray[i];
 
-      if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
+      if(notValid.includes(i)) continue; //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
 
       if( rowOfThree.every(square => currentColorArray[square] === selectedColor))
         return true;
@@ -230,12 +234,10 @@ const Game: React.FC = () => {
   }
 
   const dragStart = (e: Event) =>{
-    //console.log(e.target);
     setSquareBeingDragged(e.target);
   }
 
   const dragDrop = (e: Event) => {
-    //console.log(e.target);
     setSquareBeingReplaced(e.target);
   }
 
@@ -265,8 +267,8 @@ const Game: React.FC = () => {
       validMove && 
       (isColumOfFour || isRowOfFour || isColumOfThree || isRowOfThree)
     ){
-      setSquareBeingDragged(null)
-      setSquareBeingReplaced(null)
+      setSquareBeingDragged(null);
+      setSquareBeingReplaced(null);
     }else{
       currentColorArray[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src');
       currentColorArray[squareBeingDraggedId] = squareBeingDragged.getAttribute('src');
@@ -278,11 +280,10 @@ const Game: React.FC = () => {
   const createPanel = () => {
     const randomColorArray: string[] = [];
     for(let i = 0; i < myPanel.width * myPanel.width; i++){
-      const randomNumber0to5: number = Math.floor(Math.random() * myItemColors.color.length)
-      const randomColor: string = myItemColors.color[randomNumber0to5]
-      randomColorArray.push(randomColor)
+      const randomNumber0to5: number = Math.floor(Math.random() * myItemColors.color.length);
+      const randomColor: string = myItemColors.color[randomNumber0to5];
+      randomColorArray.push(randomColor);
     }
-    /* console.log(randomColorArray); */
     setCurrentColorArray(randomColorArray);
   }
 
@@ -292,23 +293,21 @@ const Game: React.FC = () => {
 
   useEffect(()=>{
     const timer = setInterval(() => {
-      checkColumOfFour()
-      checkRowOfFour()
-      checkColumOfThree()
-      checkRowOfThree()
-      moveIntoSquareBelow()
-      setCurrentColorArray([...currentColorArray])
+      checkColumOfFour();
+      checkRowOfFour();
+      checkColumOfThree();
+      checkRowOfThree();
+      moveIntoSquareBelow();
+      setCurrentColorArray([...currentColorArray]);
     }, 100)
     return () => clearInterval(timer)
   }, [checkColumOfFour, checkRowOfFour, checkColumOfThree, checkRowOfThree, moveIntoSquareBelow, currentColorArray])
-
-  /* console.log(currentColorArray); */
   
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
-          <IonTitle className="ion-text-center">Game</IonTitle>
+          <IonTitle className="ion-text-center">Pokemon Candy Game</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -317,9 +316,21 @@ const Game: React.FC = () => {
           dragStart={dragStart} 
           dragDrop={dragDrop} 
           dragEnd={dragEnd}
-        >
-        </GameBoard>
-        <ScoreBoard score={score}></ScoreBoard>
+        />
+
+        <ScoreBoard score={score}/>
+
+        <IonGrid fixed>
+          <IonRow>
+            <IonCol size="12">
+              <a href="https://www.flaticon.es/iconos-gratis/pokemon"  title="Iconos Pokemon" target="_blank">Iconos Pokemon creados por <b>Roundicons Freebies</b></a>
+            </IonCol>
+            <IonCol size="12">
+              <a href="https://www.flaticon.es/iconos-gratis/pokemon" title="Icono pokeball" target="_blank">Icono Pokeball creado por <b>Those Icons</b></a>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        
       </IonContent>
     </IonPage>
   );
