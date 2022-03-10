@@ -4,8 +4,22 @@ import { useState , useEffect} from 'react';
 import './Game.css';
 import GameBoard from '../components/GameBoard';
 
+import pikachu from '../images/pikachu.png';
+import charmander from '../images/charmander.png';
+import snorlax from '../images/snorlax.png';
+import jigglypuff from '../images/jigglypuff.png';
+import squirtle from '../images/squirtle.png';
+import eevee from '../images/eevee.png';
+import pokeball from '../images/pokeball.png';
+
 const myItemColors: ItemColor = {
-  color: ['blue', 'red', 'green', 'pink', 'purple', 'yellow']
+  color: [
+    squirtle, 
+    charmander, 
+    eevee, 
+    jigglypuff, 
+    snorlax, 
+    pikachu]
 };
 
 const myPanel: Panel = {
@@ -25,7 +39,7 @@ const Game: React.FC = () => {
       const selectedColor: string = currentColorArray[i]
 
       if( columOfFour.every(square => currentColorArray[square] === selectedColor))
-        columOfFour.forEach(square => currentColorArray[square] = '')
+        columOfFour.forEach(square => currentColorArray[square] = pokeball)
     }
   }
 
@@ -53,7 +67,7 @@ const Game: React.FC = () => {
       if(notValid.includes(i)) continue
 
       if( rowOfFour.every(square => currentColorArray[square] === selectedColor))
-        rowOfFour.forEach(square => currentColorArray[square] = '')
+        rowOfFour.forEach(square => currentColorArray[square] = pokeball)
 
     }
   }
@@ -103,10 +117,10 @@ const Game: React.FC = () => {
       indicamos en el array cumplen cierta condición, en nuestro caso que
       las 3 posiciones indicadas en columOfThree tengan el mismo color el
       seleccionado actual.
-      Si se cumple cambiamos el nombre del color por ''
+      Si se cumple cambiamos el nombre del color por pokeball
       */
       if( columOfThree.every(square => currentColorArray[square] === selectedColor))
-        columOfThree.forEach(square => currentColorArray[square] = '')
+        columOfThree.forEach(square => currentColorArray[square] = pokeball)
     }
   }
 
@@ -120,7 +134,7 @@ const Game: React.FC = () => {
       indicamos en el array cumplen cierta condición, en nuestro caso que
       las 3 posiciones indicadas en columOfThree tengan el mismo color el
       seleccionado actual.
-      Si se cumple cambiamos el nombre del color por ''
+      Si se cumple cambiamos el nombre del color por pokeball
       */
       if( columOfThree.every(square => currentColorArray[square] === selectedColor))
         return true;
@@ -154,7 +168,7 @@ const Game: React.FC = () => {
       if(notValid.includes(i)) continue //Si el elemento por donde va está incluido en la lista de no válidos pasa al siguiente elemento
 
       if( rowOfThree.every(square => currentColorArray[square] === selectedColor))
-        rowOfThree.forEach(square => currentColorArray[square] = '')
+        rowOfThree.forEach(square => currentColorArray[square] = pokeball)
     }
   }
 
@@ -192,14 +206,14 @@ const Game: React.FC = () => {
     for(let i: number = 0; i <= myPanel.width * myPanel.width - myPanel.width; i++){
 
       const isFirstRow: boolean = firstRow.includes(i);
-      if(isFirstRow && currentColorArray[i] === ''){
+      if(isFirstRow && currentColorArray[i] === pokeball){
         let randomNumber: number = Math.floor(Math.random() * myItemColors.color.length);
         currentColorArray[i] = myItemColors.color[randomNumber];
       }
 
-      if((currentColorArray[i + myPanel.width]) === ''){
+      if((currentColorArray[i + myPanel.width]) === pokeball){
         currentColorArray[i + myPanel.width] = currentColorArray[i];
-        currentColorArray[i] = '';
+        currentColorArray[i] = pokeball;
       }
     }
   }
@@ -218,8 +232,8 @@ const Game: React.FC = () => {
     const squareBeingDraggedId: number= parseInt(squareBeingDragged.getAttribute('data-id'));
     const squareBeingReplacedId: number = parseInt(squareBeingReplaced.getAttribute('data-id'));
 
-    currentColorArray[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor;
-    currentColorArray[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor;
+    currentColorArray[squareBeingReplacedId] = squareBeingDragged.getAttribute('src');
+    currentColorArray[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src');
 
     const validPosition: number[] = [
       squareBeingDraggedId - 1,
@@ -243,8 +257,8 @@ const Game: React.FC = () => {
       setSquareBeingDragged(null)
       setSquareBeingReplaced(null)
     }else{
-      currentColorArray[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor;
-      currentColorArray[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor;
+      currentColorArray[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src');
+      currentColorArray[squareBeingDraggedId] = squareBeingDragged.getAttribute('src');
       setCurrentColorArray([...currentColorArray]);
     }
 
@@ -289,8 +303,7 @@ const Game: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <GameBoard 
-          board={currentColorArray} 
-          colors={myItemColors.color} 
+          board={currentColorArray}
           dragStart={dragStart} 
           dragDrop={dragDrop} 
           dragEnd={dragEnd}

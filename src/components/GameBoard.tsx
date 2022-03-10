@@ -4,7 +4,6 @@ import { IonImg } from '@ionic/react';
 
 const GameBoard: React.FC<PanelBoardProps> = (
   { board, 
-    colors, 
     dragStart,
     dragDrop,
     dragEnd
@@ -17,7 +16,7 @@ const GameBoard: React.FC<PanelBoardProps> = (
                   <IonImg
                       className="img"
                       key={index} 
-                      style={{backgroundColor: color}}
+                      src={color}
                       alt={color}
                       data-id={index}
                       draggable={true} //Elemento puede ser arrastrado
