@@ -41,26 +41,26 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/game">
+          <Route exact path="/reactCandyGame/game">
             <Game />
           </Route>
-          <Route exact path="/profile">
+          <Route exact path="/reactCandyGame/profile">
             <Profile />
           </Route>
           <Route exact path="/">
-            <Redirect to="/game" />
+            <Redirect to="/reactCandyGame/game" />
           </Route>
           <Route exact path="/reactCandyGame">
-            <Redirect to="/game" />
+            <Redirect to="/reactCandyGame/game" />
           </Route>
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">
-          <IonTabButton tab="game" href="/game">
+          <IonTabButton tab="game" href="/reactCandyGame/game">
             <IonIcon icon={gameController}/>
             <IonLabel>Juego</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="profile" href="/profile" >
+          <IonTabButton tab="profile" href="/reactCandyGame/profile" >
             <IonIcon icon={personCircleOutline}/>
             <IonLabel>Perfil</IonLabel>
           </IonTabButton>
