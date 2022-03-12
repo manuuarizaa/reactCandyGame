@@ -1,6 +1,6 @@
 # REACT CANDY GAME
 - Proyecto basado en el famoso juego *Candy Crush* realizado en *REACT*, *TypeScript*, *Ionic* y *Capacitor*.
-- Puede probar el juego en [reactCandyGame](https://manuuarizaa/github.io/reactCandyGame).
+- Puede probar el juego en [reactCandyGame](https://manuuarizaa.github.io/reactCandyGame/).
 - Por ahora, solo compatible en web desde PC.
 
 ### Instrucciones para ponerlo en marcha
