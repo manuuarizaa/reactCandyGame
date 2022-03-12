@@ -1,5 +1,7 @@
-# Juego basado en Candy Crush
-## Hecho con React, typescript e Ionic
+# REACT CANDY GAME
+- Proyecto basado en el famoso juego *Candy Crush* realizado en *REACT*, *TypeScript*, *Ionic* y *Capacitor*.
+- Puede probar el juego en [reactCandyGame](https://manuuarizaa/github.io/reactCandyGame).
+- Por ahora, solo compatible en web desde PC.
 
 ### Instrucciones para ponerlo en marcha
 - Instalar [Ionic CLI](https://ionicframework.com/docs/intro/cli): `npm install -g @ionic/cli`
