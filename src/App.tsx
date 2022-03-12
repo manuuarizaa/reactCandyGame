@@ -10,9 +10,10 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { gameController } from 'ionicons/icons';
+import { gameController, personCircleOutline } from 'ionicons/icons';
 
 import Game from './pages/Game';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -43,14 +44,22 @@ const App: React.FC = () => (
           <Route exact path="/game">
             <Game />
           </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
           <Route exact path="/">
             <Redirect to="/game" />
           </Route>
         </IonRouterOutlet>
+
         <IonTabBar slot="bottom">
           <IonTabButton tab="game" href="/game">
-            <IonIcon icon={gameController} />
-            <IonLabel>Game</IonLabel>
+            <IonIcon icon={gameController}/>
+            <IonLabel>Juego</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="profile" href="/profile" >
+            <IonIcon icon={personCircleOutline}/>
+            <IonLabel>Perfil</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
