@@ -1,4 +1,5 @@
 {
+  "homepage": "https://manuuarizaa.github.io/reactCandyGame",
   "name": "reactcandygame",
   "version": "0.2.0",
   "private": true,
@@ -41,12 +42,13 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
+    
   },
   "eslintConfig": {
     "extends": [
@@ -70,6 +72,5 @@
     "@capacitor/cli": "3.3.4",
     "gh-pages": "^3.2.3"
   },
-  "description": "React Candy Game (Pokemon version) is a game based on Candy Crush, developed with REACT, TYPESCRIPT, IONIC & CAPACITOR",
-  "homepage": "https://manuuarizaa.github.io/reactCandyGame"
+  "description": "React Candy Game (Pokemon version) is a game based on Candy Crush, developed with REACT, TYPESCRIPT, IONIC & CAPACITOR"
 }
