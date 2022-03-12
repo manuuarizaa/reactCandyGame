@@ -42,9 +42,10 @@ const Game: React.FC = () => {
 
       if( columOfFour.every(square => currentColorArray[square] === selectedColor)){
         columOfFour.forEach(square => currentColorArray[square] = pokeball);
-        if(selectedColor !== pokeball)
+        if(selectedColor !== pokeball){
           setScore((sc) => sc+4);
-        
+          localStorage.setItem('score', (score + 4).toString());
+        }
       }
     }
   }
@@ -74,8 +75,10 @@ const Game: React.FC = () => {
 
       if( rowOfFour.every(square => currentColorArray[square] === selectedColor)){
         rowOfFour.forEach(square => currentColorArray[square] = pokeball);
-        if(selectedColor !== pokeball)
+        if(selectedColor !== pokeball){
           setScore((sc) => sc+4);
+          localStorage.setItem('score', (score + 4).toString());
+        }
       }
 
     }
@@ -130,8 +133,11 @@ const Game: React.FC = () => {
       */
       if( columOfThree.every(square => currentColorArray[square] === selectedColor)){
         columOfThree.forEach(square => currentColorArray[square] = pokeball);
-        if(selectedColor !== pokeball)
+        if(selectedColor !== pokeball){
           setScore((sc) => sc+3);
+          localStorage.setItem('score', (score + 3).toString());
+        }
+          
       }
     }
   }
@@ -181,8 +187,11 @@ const Game: React.FC = () => {
 
       if( rowOfThree.every(square => currentColorArray[square] === selectedColor)){
         rowOfThree.forEach(square => currentColorArray[square] = pokeball);
-        if(selectedColor !== pokeball)
+        if(selectedColor !== pokeball){
           setScore((sc) => sc+3);
+          localStorage.setItem('score', (score + 3).toString());
+        }
+          
       }
     }
   }
