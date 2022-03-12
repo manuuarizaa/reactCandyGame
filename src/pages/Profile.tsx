@@ -14,11 +14,8 @@ const Profile: React.FC = () => {
       <IonContent fullscreen>
         <IonGrid fixed>
             <IonRow>
-                <IonCol size="6">
-
-                </IonCol>
-                <IonCol size="6">
-                    
+                <IonCol size="12" className="ion-text-center">
+                    <h2>Máxima puntuación personal: <b>{localStorage.getItem('maxScore')}</b></h2>
                 </IonCol>
             </IonRow>
         </IonGrid>
