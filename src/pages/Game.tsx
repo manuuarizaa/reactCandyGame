@@ -299,6 +299,11 @@ const Game: React.FC = () => {
     createPanel();
   }, [myPanel.width])
 
+  useEffect(() => {
+    if(Number(localStorage.getItem('score')) > Number(localStorage.getItem('maxScore')))
+      localStorage.setItem('maxScore', score.toString());
+  }, [score])
+
   useEffect(()=>{
     const timer = setInterval(() => {
       checkColumOfFour();
