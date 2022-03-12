@@ -50,6 +50,9 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/game" />
           </Route>
+          <Route exact path="/reactCandyGame">
+            <Redirect to="/game" />
+          </Route>
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">
